@@ -84,7 +84,7 @@ def main():
     while True:
         start_game(users, generate_number(users))
         if not do_exit():
-            return
+            return False
 
 
 if __name__ == '__main__':
