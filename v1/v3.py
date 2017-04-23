@@ -55,17 +55,14 @@ def check_winner(user, user_number, reserved_number):
 
 
 def do_exit():
-    yes = ['y', 'yes', 'ye']
-    no = ['n', 'no', 'ne']
-    ex = raw_input("Do you want to exit game? \n")
-    if ex.lower() in yes:
-        print "Thanks for your play. Good bye!"
-        exit()
-    elif ex.lower() in no:
-        return True
-    else:
-        print "I don't understand you.\n Enter a normal answer: yes or no."
-        return True
+    while True:
+        answer = raw_input("Do you want to play again? (Y/n): ")
+        if not answer or answer.lower() in ('y', 'yes'):
+            return True
+        elif answer.lower() in ('n', 'no'):
+            return False
+        else:
+            print("Not a valid answer!")
 
 
 def generate_number(users):
@@ -82,6 +79,14 @@ def start_game(users, number):
             check_winner(user, do_move(user), number)
 
 
-users = get_users()
+def main():
+    users = get_users()
+    while True:
+        start_game(users, generate_number(users))
+        if not do_exit():
+            return
 
-start_game(users, generate_number(users))
+
+if __name__ == '__main__':
+    main()
+    exit()
