@@ -64,24 +64,25 @@ def do_exit():
             print("Not a valid answer!")
 
 
-def generate_number(users):
-    len_users = len(users)
-    rnd = random.randint(1, 10 ** len_users)
+def generate_number():
+    rnd = random.randint(1, 100)
     computer_number = random.randint(1, rnd)
     return computer_number
 
 
-def start_game(users, number):
-    print "You will have " + str(len(users) * 5) + " tries to won"
-    for i in range(0, len(users) * 5):
+def start_game(users):
+
+    computer_number = generate_number()
+    for i in range(0, 100):
         for user in users:
-            if check_winner(user, do_move(user), number):
+            if check_winner(user, do_move(user), computer_number):
                 return True
+
 
 def main():
     users = get_users()
     while True:
-        start_game(users, generate_number(users))
+        start_game(users)
         if not do_exit():
             return False
 
