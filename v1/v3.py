@@ -17,41 +17,40 @@ def greater_than_zerro(string):
 
 
 def get_users():
-    try:
-        user_name = []
-        users_in_game = raw_input("Enter number of players: ")
-        for i in range(0, int(users_in_game)):
-            user = raw_input("Enter " + str(i + 1) + " user name: ")
-            user_name.append(user)
-        return user_name
-    except ValueError:
-        return get_users()
+    while True:
+        try:
+            user_name = []
+            users_in_game = raw_input("Enter number of players: ")
+            for i in range(0, int(users_in_game)):
+                user = raw_input("Enter " + str(i + 1) + " user name: ")
+                user_name.append(user)
+            return user_name
+        except ValueError:
+            print "Value Error!"
 
 
 def do_move(user):
-    try:
-        your_number = int(raw_input(str(user) + " please enter your number: "))
-        if your_number < 0:
-            print "You entered negative number. Gane is only with positive. Try again."
-            do_move(user)
-        return your_number
-    except ValueError:
-        print "Sorry, you entered not a number. Please, try again."
-        return do_move(user)
+    while True:
+        try:
+            your_number = int(raw_input(str(user) + " please enter your number: "))
+            if validate_number(your_number) and greater_than_zerro(your_number):
+                return your_number
+            else:
+                print "You entered negative number. Game is only with positive. Try again."
+        except ValueError:
+            print "Sorry, you entered not a number. Please, try again."
 
 
 def check_winner(user, user_number, reserved_number):
-    if validate_number(user_number):
-        if reserved_number == user_number:
-            print ('\033[1m' + str(user).capitalize() + '\033[0m' + " you won!")
-            do_exit()
-        elif user_number > reserved_number:
-            print (str(user) + " your number is " + '\033[1m' + "greater" + '\033[0m' + " than was guessed. Next try.")
-        elif user_number < reserved_number:
-            print (str(user) + " your number is " + '\033[1m' + "less" + '\033[0m' + " than was guessed. Next try.")
-    else:
-        print "Some shit happens. New try."
-        return check_winner(user, user_number, reserved_number)
+    if reserved_number == user_number:
+        print ('\033[1m' + str(user).capitalize() + '\033[0m' + " you won!")
+        return True
+    elif user_number > reserved_number:
+        print (str(user) + " your number is " + '\033[1m' + "greater" + '\033[0m' + " than was guessed. Next try.")
+    elif user_number < reserved_number:
+        print (str(user) + " your number is " + '\033[1m' + "less" + '\033[0m' + " than was guessed. Next try.")
+
+    return False
 
 
 def do_exit():
@@ -76,8 +75,8 @@ def start_game(users, number):
     print "You will have " + str(len(users) * 5) + " tries to won"
     for i in range(0, len(users) * 5):
         for user in users:
-            check_winner(user, do_move(user), number)
-
+            if check_winner(user, do_move(user), number):
+                return True
 
 def main():
     users = get_users()
