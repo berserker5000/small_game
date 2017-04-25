@@ -10,7 +10,7 @@ def validate_number(string):
         return False
 
 
-def greater_than_zerro(string):
+def greater_than_zero(string):
     if int(string) > 0:
         return True
     return False
@@ -33,7 +33,7 @@ def do_move(user):
     while True:
         try:
             your_number = int(raw_input(str(user) + " please enter your number: "))
-            if validate_number(your_number) and greater_than_zerro(your_number):
+            if validate_number(your_number) and greater_than_zero(your_number):
                 return your_number
             else:
                 print "You entered negative number. Game is only with positive. Try again."
