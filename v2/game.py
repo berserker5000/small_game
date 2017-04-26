@@ -23,5 +23,3 @@ def main():
 if __name__ == '__main__':
     main()
     exit()
-
-#TODO: count number of moves.
