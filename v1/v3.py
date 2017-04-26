@@ -43,7 +43,7 @@ def do_move(user):
 
 def check_winner(user, user_number, reserved_number):
     if reserved_number == user_number:
-        print ('\033[1m' + str(user).capitalize() + '\033[0m' + " you won!")
+        print ('\033[1m' + str(user).capitalize()  + " you won!" + '\033[0m' + '\n')
         return True
     elif user_number > reserved_number:
         print (str(user) + " your number is " + '\033[1m' + "greater" + '\033[0m' + " than was guessed. Next try.")
@@ -73,7 +73,7 @@ def generate_number():
 def start_game(users):
 
     computer_number = generate_number()
-    for i in range(0, 100):
+    while True:
         for user in users:
             if check_winner(user, do_move(user), computer_number):
                 return True
