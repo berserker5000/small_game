@@ -8,14 +8,10 @@ import random
 def validate_number(string):
     try:
         int(string)
+        if int(string) > 0:
+            return True
     except ValueError:
         return False
-
-
-def greater_than_zero(string):
-    if int(string) > 0:
-        return True
-    return False
 
 
 def commands(command):
@@ -64,14 +60,14 @@ def generate_number():
 
 def check_winner(user, user_number, reserved_number):
     if reserved_number == user_number:
-        print (bcolors.BOLD + bcolors.UNDERLINE + str(user).capitalize() + " you won!" + bcolors.ENDC + '\n')
+        print (bcolors.BOLD + str(user).capitalize() + " you won!" + bcolors.ENDC + '\n')
         return True
     elif user_number > reserved_number:
         print (str(
-            user) + " your number is " + bcolors.BOLD + bcolors.UNDERLINE + "greater" + bcolors.ENDC + " than was guessed. Next try.")
+            user) + " your number is " + bcolors.BOLD + "greater" + bcolors.ENDC + " than was guessed. Next try.")
     elif user_number < reserved_number:
         print (str(
-            user) + " your number is " + bcolors.BOLD + bcolors.UNDERLINE + "less" + bcolors.ENDC + " than was guessed. Next try.")
+            user) + " your number is " + bcolors.BOLD + "less" + bcolors.ENDC + " than was guessed. Next try.")
     return False
 
 
@@ -92,7 +88,7 @@ def do_move(user):
     while True:
         try:
             your_number = int(raw_input(str(user) + " please enter your number: "))
-            if validate_number(your_number) and greater_than_zero(your_number):
+            if validate_number(your_number):
                 return your_number
             else:
                 print "You entered negative number. Game is only with positive. Try again."
