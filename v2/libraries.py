@@ -1,8 +1,8 @@
 import random
 
-
 # TODO: Unique names, not empty
 # TODO:add commands to game (add user, remove user, help)
+from re import L
 
 
 def validate_number(string):
@@ -15,8 +15,15 @@ def validate_number(string):
 
 
 def commands(command):
-    pass
-
+    if command == "add":
+        print "ADDING"
+    elif command == "rem":
+        print "REMOVING"
+    elif command == "help":
+        print help()
+    else:
+        print help()
+    return False
 
 def bold(text):
     if check_not_empty(text) == False:
@@ -25,22 +32,21 @@ def bold(text):
 
 
 def check_not_empty(text):
-        if str(text).isspace() or str(text) == "":
-            return False
-        return True
+    if str(text).isspace() or str(text) == "":
+        return False
+    return True
+
 
 def check_name_not_empty(text, error_message):
-        if not check_not_empty(text):
-            print str(error_message)
-            return False
-        return True
+    if not check_not_empty(text):
+        print str(error_message)
+        return False
+    return True
+
 
 def check_name_in_list(lst):
-    for i in lst:
-        pass
-
-
-
+    newlist = [ii for n, ii in enumerate(lst) if ii not in lst[:n]]
+    return newlist
 
 
 def number_prompt(ask, minimum, maximum):
@@ -66,8 +72,8 @@ def remove_user(user):
 def help():
     return "This a help message. \n You can you such commands as: \n " \
            "/add <user_name> - this command will add user to your game. \n " \
-           "/remove <user_name> - this command will remove user from playing. \n " \
-           "help - this command will display current message."
+           "/rem <user_name> - this command will remove user from playing. \n " \
+           "/help - this command will display current message."
 
 
 def generate_number():
@@ -85,3 +91,13 @@ class bcolors:
     ENDC = '\033[0m'
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
+
+def command_start_check(text):
+    if str(text).startswith("/"):
+        return commands(text[1:])
+    else:
+        return False
+
+
+text = raw_input()
+command_start_check(text)
